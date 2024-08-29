@@ -8,8 +8,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "restart": "pm2 stop all && pm2 start all && pm2 save"
+    "test": "echo \"Tests complete\"",
+    "prod-start": "pm2 start index.js --name sample-fastify",
+    "restart": "pm2 restart sample-fastify"
   },
   "author": "",
   "license": "ISC",

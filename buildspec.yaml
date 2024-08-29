@@ -1,0 +1,30 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - echo Installing dependencies...
+      - npm install
+
+  pre_build:
+    commands:
+      - echo running tests...
+      - npm run test
+
+  post_build:
+    commands:
+      - echo Packaging the application...
+      - zip -r application.zip .
+      - echo Deploying to EC2...
+      - aws ec2 describe-instances --filters "Name=tag:Name,Values=acr-ec2" "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].[InstanceId]" --output text > instances.txt
+      - for instance in $(cat instances.txt); do
+      -   aws ssm send-command --instance-ids $instance --document-name "AWS-RunShellScript" --parameters commands=[
+          "cd /home/ubuntu/webapps/sample-fastify",
+          "aws s3 cp s3://${S3_BUCKET}/application.zip .",
+          "unzip -o application.zip",
+          "npm install",
+          "npm run restart"
+          ]
+      - done
