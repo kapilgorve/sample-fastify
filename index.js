@@ -5,7 +5,7 @@ const fastify = Fastify({
 });
 
 fastify.get('/', async (request, reply) => {
-    return { message: 'ec2 working' };
+    return { message: 'pm2 testing' };
 });
 
 try {

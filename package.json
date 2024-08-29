@@ -8,11 +8,13 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "restart": "pm2 stop all && pm2 start all && pm2 save"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fastify": "^4.28.1"
+    "fastify": "^4.28.1",
+    "pm2": "^5.2.0"
   }
 }
