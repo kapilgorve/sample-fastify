@@ -21,8 +21,7 @@ phases:
       - aws ec2 describe-instances --filters "Name=tag:Name,Values=acr-ec2" "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].[InstanceId]" --output text > instances.txt
       - for instance in $(cat instances.txt); do
       -   aws ssm send-command --instance-ids $instance --document-name "AWS-RunShellScript" --parameters commands=[
-          "cd /home/ubuntu/webapps/sample-fastify",
-          "aws s3 cp s3://${S3_BUCKET}/application.zip .",
+          "cd /home/ubuntu/webapp/sample-fastify",
           "unzip -o application.zip",
           "npm install",
           "npm run restart"

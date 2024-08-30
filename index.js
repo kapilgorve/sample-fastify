@@ -5,7 +5,7 @@ const fastify = Fastify({
 });
 
 fastify.get('/', async (request, reply) => {
-    return { message: 'pm2 testing' };
+    return { message: 'pm2 restart command test' };
 });
 
 try {
